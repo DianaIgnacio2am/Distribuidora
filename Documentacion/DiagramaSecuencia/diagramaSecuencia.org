@@ -1,0 +1,246 @@
+#+title: Diagrama Secuencia
+
+* Usuario Gestiona un Producto
+#+begin_src plantuml :file GestionProducto.jpg
+@startuml
+actor "Cliente" as cl
+boundary "FormProductos" as fps
+boundary "FormProducto" as fp
+
+control "Controladora Producto" as gp
+entity "Repo Productos" as rp
+
+group "Registrar Nuevo Producto"
+ cl -> fps: Registrar Producto
+ fps -> fp: RegistrarProducto()
+ fp -> gp: AñadirProducto(:Producto)
+ gp -> rp: Add(:Producto)
+
+ alt ok case
+  rp --> gp: 👍
+  gp --> fp: "Se añadió el producto"
+ else algo fallo
+  rp --> gp: 👎
+  gp --> fp: "Falló la carga"
+ end
+
+ fp --> fps: ok
+
+ group "Refesh Productos"
+  fps -> fps: RefreshGUI()
+ end
+end
+
+group "Modificar Producto"
+ cl -> fps: Modificar Producto
+ fps -> fp: ModificarProducto(:Producto)
+ fp -> gp: ModificarProducto(:Producto)
+ gp -> rp: Mod(:Producto)
+
+ alt ok case
+  rp --> gp: 👍
+  gp --> fp: "Se Modificó el producto"
+ else algo fallo
+  rp --> gp: 👎
+  gp --> fp: "Falló Modificacion"
+ end
+
+ fp --> fps: ok
+
+ group "Refesh Productos"
+  fps -> fps: RefreshGUI()
+ end
+end
+
+group "Eliminar Producto"
+ cl -> fps: Eliminar Producto
+ fps -> gp: EliminarProducto(:Producto)
+ gp -> rp: Del(:Producto)
+
+ alt ok case
+  rp --> gp: 👍
+  gp --> fp: "Se eliminó el producto"
+ else algo fallo
+  rp --> gp: 👎
+  gp --> fp: "Falló la Baja del producto"
+ end
+
+
+ group "Refesh Productos"
+  fps -> fps: RefreshGUI()
+ end
+end
+
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:GestionProducto.jpg]]
+
+* Usuario Gestiona Categorias
+#+begin_src plantuml :file GestionCategorias.jpg
+@startuml
+actor "Cliente" as cl
+boundary "FormCategorias" as fcs
+boundary "FormCategoria" as fc
+
+control "Controladora Categorias" as gc
+entity "Repo Categorias" as rc
+
+group "Añadir Categoria"
+ cl -> fcs: Añadir Categoria
+ fcs -> fc: RegistrarCategoria()
+ fc -> gc: RegistrarCategoria(:Categoria)
+ gc -> rc: Add(:Categoria)
+
+ alt ok case
+  rc --> gc: 👍
+  gc --> fc: "Se añadió la Categoria"
+ else algo fallo
+  rc --> gc: 👎
+  gc --> fc: "Falló la carga"
+ end
+ fc --> fcs: ok
+ group "Refrescar Categorias"
+  fcs -> fcs: RefreshGUI()
+ end
+end
+
+
+group "Eliminar Categoria"
+ cl -> fcs: Eliminar Categoria
+ fcs -> fc: RegistrarCategoria()
+ fc -> gc: RegistrarCategoria(:Categoria)
+ gc -> rc: Add(:Categoria)
+
+ alt ok case
+  rc --> gc: 👍
+  gc --> fc: "Se Eliminó la Categoria"
+ else algo fallo
+  rc --> gc: 👎
+  gc --> fc: "Falló la Baja"
+ end
+ fc --> fcs: ok
+ group "Refrescar Categorias"
+  fcs -> fcs: RefreshGUI()
+ end
+end
+
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:GestionCategorias.jpg]]
+
+* Usuario Registra Facturas
+#+begin_src plantuml :file GestionFacturas.jpg
+@startuml
+actor "Cliente" as cl
+boundary "FormFacturas" as fcs
+boundary "FormFactura" as fc
+
+control "Controladora Facturas" as gc
+entity "Repo Facturas" as rc
+
+group "Añadir Factura"
+ cl -> fcs: Añadir Factura
+ fcs -> fc: RegistrarFactura()
+ fc -> gc: RegistrarFactura(:Factura)
+ gc -> rc: Add(:Factura)
+
+ alt ok case
+  rc --> gc: 👍
+ else algo fallo
+  rc --> gc: 👎
+ end
+ gc -> rc: DescontarStock(:Factura)
+
+ alt ok case
+  rc --> gc: 👍
+ else algo fallo
+  rc --> gc: 👎
+ end
+
+ gc --> fc: ok
+
+ fc --> fcs: ok
+ group "Refrescar Facturas"
+  fcs -> fcs: RefreshGUI()
+ end
+end
+
+
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:GestionFacturas.jpg]]
+
+* Gestion de Mails para informes
+#+begin_src plantuml :file GestionMails.jpg
+@startuml
+actor "Cliente" as cl
+boundary "FormGestionMails" as fps
+
+control "ControladoraGestionMails" as gp
+entity "RepoMails" as rp
+
+group "Registrar Nuevo Mails"
+ cl -> fps: Registrar Mail
+ fps -> gp: RegistrarMail(:Mail)
+ gp -> rp: Add(:Mail)
+
+ alt ok case
+  rp --> gp: 👍
+  gp --> fps: "Se añadió el Mail"
+ else algo fallo
+  rp --> gp: 👎
+  gp --> fps: "Falló la carga"
+ end
+
+ group "Refesh Mails"
+  fps -> fps: RefreshGUI()
+ end
+end
+
+group "Modificar Mail"
+ cl -> fps: Modificar Mail
+ fps -> gp: ModificarMail(:Mail)
+ gp -> rp: Mod(:Mail)
+
+ alt ok case
+  rp --> gp: 👍
+  gp --> fps: "Se Modificó el Mail"
+ else algo fallo
+  rp --> gp: 👎
+  gp --> fps: "Falló Modificacion"
+ end
+
+ group "Refesh Mails"
+  fps -> fps: RefreshGUI()
+ end
+end
+
+group "Eliminar Mail"
+ cl -> fps: Eliminar Mail
+ fps -> gp: EliminarMail(:Mail)
+ gp -> rp: Del(:Mail)
+
+ alt ok case
+  rp --> gp: 👍
+  gp --> fps: "Se eliminó el Mail"
+ else algo fallo
+  rp --> gp: 👎
+  gp --> fps: "Falló la Baja del Mail"
+ end
+
+
+ group "Refesh Mail"
+  fps -> fps: RefreshGUI()
+ end
+end
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:GestionMails.jpg]]

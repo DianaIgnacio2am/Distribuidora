@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Entidades.Categoria">
+    <Position X="2" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Categoria.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Cliente">
+    <Position X="14.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAEACAAgABAAIAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Detalle&lt;T&gt;">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAEAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Detalle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.DetalleFactura">
+    <Position X="12.5" Y="2.25" Width="1.5" />
+    <InheritanceLine Type="Entidades.Detalle&lt;T&gt;" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="12.25" Y="1.375" />
+        <Point X="13.25" Y="1.375" />
+        <Point X="13.25" Y="2.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DetalleFactura.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.DetalleOrdenDeCompra">
+    <Position X="10" Y="2.75" Width="2" />
+    <InheritanceLine Type="Entidades.Detalle&lt;T&gt;" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="11.812" Y="1.988" />
+        <Point X="11.812" Y="2.365" />
+        <Point X="11" Y="2.365" />
+        <Point X="11" Y="2.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>DetalleOrdenDeCompra.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="presupuesto" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entidades.DetallePresupuesto">
+    <Position X="6.25" Y="1.25" Width="1.75" />
+    <InheritanceLine Type="Entidades.Detalle&lt;T&gt;" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="10.75" Y="1.438" />
+        <Point X="8" Y="1.438" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAEAAAQABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DetallePresupuesto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Factura">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAQAAEAAACAAAACBAABQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factura.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Cliente" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="detalles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Entidades.Lote">
+    <Position X="2" Y="0.75" Width="2" />
+    <InheritanceLine Type="Entidades.Detalle&lt;T&gt;" FixedFromPoint="true">
+      <Path>
+        <Point X="10.75" Y="1" />
+        <Point X="4" Y="1" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lote.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.OrdenDeCompra">
+    <Position X="10" Y="5.25" Width="1.5" />
+    <AssociationLine Name="detalles" Type="Entidades.DetalleOrdenDeCompra">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.005" Y="1.175" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAQABAAAAAAAAADBAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>OrdenDeCompra.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Proveedor" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="detalles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Entidades.Presupuesto">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <AssociationLine Name="detalles" Type="Entidades.DetallePresupuesto" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="4.062" />
+        <Point X="6.875" Y="4.062" />
+        <Point X="6.875" Y="3.06" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAQAAEAAAAAAAADBAADABAAAAgAAAAAAAA=</HashCode>
+      <FileName>Presupuesto.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Proveedor" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="detalles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Entidades.Producto">
+    <Position X="4.25" Y="8.25" Width="1.75" />
+    <Members>
+      <Method Name="AñadirCategoria" Hidden="true" />
+      <Field Name="categorias" Hidden="true" />
+      <Method Name="EliminarCategoria" Hidden="true" />
+      <Method Name="MostrarCategorias" Hidden="true" />
+    </Members>
+    <AssociationLine Name="proveedores" Type="Entidades.Proveedor" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="6" Y="8.375" />
+        <Point X="6.75" Y="8.375" />
+        <Point X="6.75" Y="8.375" />
+        <Point X="7" Y="8.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAECAQAAAgAAQAAgAAAAgAAYAAQAABAAIAAAAAAAAAA=</HashCode>
+      <FileName>Producto.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Categoria" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="proveedores" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Entidades.Proveedor">
+    <Position X="7" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQAAAAAAAAAAAACAAgAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Proveedor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Remito">
+    <Position X="0.5" Y="6.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAABAAAABACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Remito.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Proveedor" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="lotesDeProductosEntregados" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Entidades.ProductoNoPercedero">
+    <Position X="8.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProductoNoPercedero.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TipoDeEnvase" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Entidades.ProductoPercedero">
+    <Position X="8.75" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="Entidades.Producto" FixedFromPoint="true">
+      <Path>
+        <Point X="6" Y="10.25" />
+        <Point X="8.75" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>ProductoPercedero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Entidades.EnvaseTipo">
+    <Position X="11" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAIEAAIAAAA=</HashCode>
+      <FileName>EnvaseTipo.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

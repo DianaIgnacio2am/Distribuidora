@@ -1,0 +1,258 @@
+#+title: Casos De Uso
+
+* Empleado Gestiona un Producto
+#+begin_src plantuml :file registroProducto.jpg
+@startuml
+left to right direction
+actor "Empleado" <<Persona>> as fc
+rectangle GestionProductos {
+  usecase "Gestionar Productos" as UC1
+  usecase "Listar Productos" as UC2
+  usecase "Modificar Productos" as UC3
+  usecase "Eliminar Producto" as UC4
+  usecase "Registrar Producto" as UC5
+  usecase "Seleccionar Proveedor" as uc7
+  usecase "Gestionar Categorias" as uc6
+}
+fc --> UC1
+UC1 ..> UC2: "include"
+UC3 ..> UC1: "extend"
+UC4 ..> UC1: "extend"
+UC5 ..> UC1: "extend"
+UC5 ..> uc7: "include"
+
+UC3 .> uc6: "include"
+UC5 .> uc6: "include"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:registroProducto.jpg]]
+
+* Empleado Gestion Categorias
+#+begin_src plantuml :file RegistroCategorias.jpg
+@startuml
+actor "Empleado" <<Persona>> as fc
+rectangle RegistrarCategorias {
+  usecase "Gestionar Categorias" as UC1
+  usecase "Eliminar Categoria" as UC4
+  usecase "Registrar Categoria" as UC5
+}
+fc --> UC1
+UC4 ..> UC1: "extend"
+UC5 ..> UC1: "extend"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:RegistroCategorias.jpg]]
+
+* Empleado Registra Facturas
+#+begin_src plantuml :file RegistroFacturas.jpg
+@startuml
+left to right direction
+actor "Empleado" <<Persona>> as fc
+rectangle RegistrarFacturas {
+  usecase "Gestionar Facturas" as uc0
+  usecase "Registrar Factura" as UC1
+  usecase "Listar Productos Con Existencias" as UC2
+  usecase "Filtrar Producto Por Categoria" as uc3
+  usecase "Descontar Stock" as uc4
+}
+
+fc --> uc0
+uc0 <.. UC1: "extend"
+uc0 ..> UC2: "include"
+UC2 ..> uc3: "include"
+UC1 ..> uc4: "include"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:RegistroFacturas.jpg]]
+
+* Empleado Registra Ordenes de Compra
+#+begin_src plantuml :file RegistroOrdenDeCompra.jpg
+@startuml
+left to right direction
+actor "Empleado" <<Persona>> as fc
+rectangle RegistrarOrdendeCompra {
+  usecase "Gestionar OrdenDeCompra" as uc0
+  usecase "Registrar OrdenDeCompra" as UC1
+  usecase "Seleccionar Presupuesto" as uc3
+  usecase "Listar Ordenes" as UC2
+}
+
+fc --> uc0
+uc0 <.. UC1: "extend"
+uc0 ..> UC2: "include"
+UC1 ..> uc3: "include"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:RegistroOrdenDeCompra.jpg]]
+
+* Empleado Registra Remito
+#+begin_src plantuml :file RegistroRemito.jpg
+@startuml
+left to right direction
+actor "Empleado" <<Persona>> as fc
+rectangle RegistroRemito {
+  usecase "Gestionar Remitos" as uc0
+  usecase "Registrar Remito" as UC1
+  usecase "Aumentar Stock" as uc3
+  usecase "Listar Remitos" as uc4
+}
+
+fc --> uc0
+uc0 ..> uc4: "include"
+uc0 <.. UC1: "extend"
+UC1 ..> uc3: "include"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:RegistroRemito.jpg]]
+
+* Se pide un Presupuesto
+#+begin_src plantuml :file PedidoPresupuesto.jpg
+@startuml
+left to right direction
+actor "Empleado" <<Persona>> as fc
+rectangle RegistroRemito {
+  usecase "Gestionar Pedidos de Presupuesto" as uc0
+  usecase "Enviar Pedido de Presupuesto" as uc1
+  usecase "Registrar Pedido de Presupuesto" as uc3
+}
+
+fc --> uc0
+uc0 <.. uc3: "extend"
+uc1 ..> uc3: "include"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:PedidoPresupuesto.jpg]]
+
+* Carga de presupuesto enviado por un proveedor
+#+begin_src plantuml :file CargaPresupuesto.jpg
+@startuml
+left to right direction
+actor "Empleado" <<Persona>> as fc
+rectangle RegistroRemito {
+  usecase "Gestionar Presupuestos" as uc0
+  usecase "Registrar Presupuesto" as uc1
+}
+
+fc --> uc0
+uc0 <.. uc1: "extend"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:CargaPresupuesto.jpg]]
+
+
+* Informar pocos productos en stock
+#+begin_src plantuml :file Informe.jpg
+actor "Sistema" <<Programa>> as pr
+
+rectangle "Aviso Stock Restante" {
+ note "<<Invariable>>\n producto->stock <= producto->umbralAvisoStock" as n1
+
+ usecase "Checkear Stock" as uc0
+ usecase "Enviar Informe" as uc1
+
+ usecase "Enviar Mail" as uc2
+ usecase "Mostrar MessageBox" as uc3
+
+}
+
+pr --> uc0
+uc1 ..> uc0: "extend"
+uc1 ..> uc2: "include"
+uc1 ..> uc3: "include"
+
+n1 .. uc0
+
+#+end_src
+
+#+RESULTS:
+[[file:Informe.jpg]]
+
+
+* Gestionar Mails de Informes
+#+begin_src plantuml :file GestionMails.jpg
+@startuml
+actor "Empleado" <<Persona>> as cl
+
+rectangle "Gestion Mails" {
+ usecase "Gestionar Mails" as UC1
+ usecase "Listar Mails" as UC2
+ usecase "Modificar Mails" as UC3
+ usecase "Eliminar Mail" as UC4
+ usecase "Registrar Mail" as UC5
+}
+
+left to right direction
+cl --> UC1
+UC1 ..> UC2: "include"
+UC1 <.. UC3: "extend"
+UC1 <.. UC4: "extend"
+UC1 <.. UC5: "extend"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:GestionMails.jpg]]
+
+* Empleado Registra Proveedor
+#+begin_src plantuml :file GestionProveedor.jpg
+@startuml
+actor "Empleado" <<Persona>> as cl
+
+rectangle "Gestion Proveedor" {
+ usecase "Gestionar Proveedor" as UC1
+ usecase "Listar Proveedor" as UC2
+ usecase "Modificar Proveedor" as UC3
+ usecase "Eliminar Proveedor" as UC4
+ usecase "Registrar Proveedor" as UC5
+}
+
+left to right direction
+cl --> UC1
+UC1 ..> UC2: "include"
+UC1 <.. UC3: "extend"
+UC1 <.. UC4: "extend"
+UC1 <.. UC5: "extend"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:GestionProveedor.jpg]]
+
+* Empleado Registra Cliente
+#+begin_src plantuml :file GestionCliente.jpg
+@startuml
+actor "Empleado" <<Persona>> as cl
+
+rectangle "Gestion Cliente" {
+ usecase "Gestionar Cliente" as UC1
+ usecase "Listar Cliente" as UC2
+ usecase "Modificar Cliente" as UC3
+ usecase "Eliminar Cliente" as UC4
+ usecase "Registrar Cliente" as UC5
+}
+
+left to right direction
+cl --> UC1
+UC1 ..> UC2: "include"
+UC1 <.. UC3: "extend"
+UC1 <.. UC4: "extend"
+UC1 <.. UC5: "extend"
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:GestionCliente.jpg]]

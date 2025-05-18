@@ -1,0 +1,98 @@
+#+title:   Proyecto Final OOP
+#+author:  Federico Polidoro & Ignacio Diana
+#+options: date:nil
+#+LATEX_HEADER: \usepackage{svg}
+
+* Sistema de Gestion de Stock para una Distribuidora Mayorista
+El target de nuestro sistema es una distribuidora. Este empresa basa sus operaciones en la compra de productos para luego ser revendidos a Minoristas.
+Solo Buscamos controlar el stock en un solo almacen productos.
+
+Algunas de las funciones principales del sistema consisten en:
+- Registrar Ordenes de compra para los proveedores, almacenar los presupuestos que nos dan los proveedores en base a los pedidos de presupuesto y comprobar con el remito que el producto recibido sea la misma orden que emitimos nosotros.
+- Gestionar el stock de mercaderia mercante, es decir, Registrar las compras hechas para deducir de nuestro stock remanente ( Ventas ) Y aumentar el stock mediante lo que el remito (ya asegurados de que este represente lo mismo que pedimos en la Orden de compra).
+- Registro de Productos en venta, y sus respectivos proveedores.
+- Almacenar las ventas realizadas a clientes.
+
+** A continuacion se expandirá sobre las funcionalidades del sistema
+*** Registro de productos en venta
+La dada de alta de un producto se dividirá sobre si un producto es percedero o no requerirá de que se ingresen con los siguientes datos para registrar un producto:
++ Nombre
++ Codigo
++ Precio
++ Y si está habilitado
+
+NOTA: Es necesario que en el nombre del producto se incluya la marca y que és.
+
+Además de en caso de ser percedero se requerirá la cantidad de meses los cuales es recomendable que se consuma el producto y la cantidad de meses hasta que el producto llegue a su fecha de vencimiento.
+
+Mientras que uno *no* percedero necesita tener especificado cual es el tipo de envase que utiliza, este ya sea, Plastico; Enlatado o Cartón.
+
+*** Registro de Categorias
+Internamente usamos unos identificadores para las categorias de los productos. Estos sirven la utilidad de poder filtrar que producto corresponde a que categoria. Los productos pueden ocupar varias categorias al mismo tiempo.
+
+Al cargar la categoria solo se debe de ingresar, un nombre para esta.
+
+*** Registro de Proveedores
+Los proveedores se pueden cargar en el sistema, y cada proveedor nos da un presupuesto para renovar el stock de un producto.
+
+Para cargar un Proveedor en el sistema se necesita:
++ Nombre
++ RazonSocial
+
+*** Registro de Pedidos de presupuesto
+Estos pedidos son creados para que los proveedores nos dén presupuestos de lo que nos va a Costar reponer X cantidad de productos. Por lo que cada item del Pedido debe de tener.
+
+- Cantidad
+- Nombre De Producto
+
+Los pedidos están asociados al Proveedor al cual estamos consultando además de la fecha en la que lo estamos haciendo.
+
+*** Registro de Presupuestos
+Los presupuestos son creados en base a los Items qu listemos en el pedido de presupuesto. Los items del presupuesto deben coinsidir con los del pedido en cantidad, Nombre de producto. Esto para asegurarnos de que lo que nos están presupuestando es lo mismo que nosotros les pedimos.
+
+Cuando recibimos un presupuesto listamos los items del mismo con los datos de:
+
+- Cantidad de Productos.
+- Informacion del producto.
+- Costo de cada producto.
+- y queda para nosotros marcar si aceptamos el item del presupuesto.
+
+El resto del presupuesto guarda informacion de quien emitio el presupuesto (proveedor), cuando lo recibimos (fecha).
+
+*** Registro Orden de Compra
+Las ordenes de compra se realizan en base a cada item aprobado del presupuesto de forma individual. una vez hechas se envian al proveedor.
+
+*** Registro Remitos
+Los remitos nos dan la informacion de que mercaderia fue transladada a nuestro deposito. Este dato nos permite cargar los nuevos lotes de productos en nuestro stock.
+
+En todos los casos los lotes traen una fecha de elaboracion, Este dato es el que usamos para calcular la fecha de caducacion y consumo preferente en caso de ser un producto percedero.
+
+*** Registro de Clientes
+Para poder Registrar una Compra por parte de un cliente vamos a necesitar que el cliente en cuestión se registre en el sistema sus siguientes datos:
++ Cuit: int
++ Nombre: string
++ Apellido: string
++ Direccion: string
++ Correo: string
+
+*** Modificar de Clientes
+Esta opcion existe en caso de que se necesite cambiar los datos de Nombre, Apellido, Direccion o Correo. No es posible cambiar el Cuit.
+
+*** Modificar y Baja lógica de Proveedores
+Desde el sistema se podrá dar una baja lógica de un proveedor, o cambiar los datos de uno en caso de que el proveedor sea adquirido por otra empresa o cambie de nombre.
+
+En caso de que el proveedor deje de estar en el mercado tambien es posible de darle una baja lógica en el sistema.
+
+*** Baja lógica de Presupuestos
+Es necesario que los presupuestos puedan ser dados de baja para que los nuevos presupuestos puedan reemplazar a los viejos.
+
+*** Modificar y Baja lógica de Productos
+Tanto el Nombre, Precio y sus posibles proveedores podrán ser modificados. En adición a eso es posible Modificar la relaciones del producto con las categorias (añadir o eliminar).
+
+*** Control de Stock (Ventas)
+Cuando una Factura sea ingresada al sistema se deducirá del stock la misma cantidad de productos como los detallados en el documento de la venta.
+
+*** Control de Stock (Compra)
+Se podrá crear un pedido de presupuesto con los productos que estamos interesados en comprar a los proveedores. Estos nos enviarán Presupuestos de los cuales nosotros elejiremos a quien comprar, Una vez tomada la decision se emitirá una orden de compra hacia tal proveedor.
+
+Una vez que la mercaderia llega a nosotros se debe de comprobar que los productos del remito coinsidan con los de la orden de compra registrada. En caso de ser así los lotes de productos son registrados y contabilizados dentro de nuestro stock.

@@ -1,0 +1,165 @@
+#+title: Diagrama De Clases
+#+LATEX_HEADER: \usepackage{svg}
+
+* Diagrama de clases sin Repositorios
+#+begin_src plantuml :file DiagramaSinRepos.jpg
+@startuml
+
+class ProductoNoPercedero {
++ TipoDeEnvase: EnvaseTipo
+}
+
+class ProductoPercedero {
++ MesesHastaConsumoPreferente: int
++ MesesHastaVencimiento: int
+}
+
+Producto <|-- ProductoNoPercedero
+Producto <|-- ProductoPercedero
+
+class Producto {
++ Id: int
++ Nombre: string
++ Precio: double
+- Categorias: List<Categoria>?
++ Habilitado: bool
++ EsPecedero: bool
+
++ MostrarCategoriasDeProductos(): ReadOnlyCollection<Categoria>
++ AñadirCategoriasStock(): bool
++ EliminarCategoriasStock(): bool
+}
+
+class Categoria {
++ Id: int
++ Descripcion: String
+}
+
+class Presupuesto {
++ Id: int
++ Fecha: DateTime
++ Proveedor: Proveedor
++ Habilitado: bool
+- Detalles: List<DetallePresupuesto>
++ Aceptado: bool
+
++ MostrarDetalles(): ReadOnlyCollection<DetallePresupuesto>
++ AñadirDetalle(DetallePresupuesto): bool
+}
+
+class Proveedor {
++ Cuit: int
++ Nombre: string
++ RazónSocial: string
++ Habilitado: bool
+}
+
+class DetalleFactura {
++ IdFactura: int
++ Subtotal(): double
+}
+
+class Cliente {
++ Cuit: string
++ Nombre: string
++ ApellIdo: string
++ Direccion: string
++ Correo: string
++ Habilitado: bool
+}
+
+class Detalle <where T: Producto>{
++ Id: int
++ Producto: T
++ Cantidad: int
+}
+
+class Factura {
++ Id: int
++ Total: double
++ Fecha: DateTime
++ Cliente: Cliente
+- detalles: List<DetalleFactura>
+
++ MostrarDetalles(): ReadOnlyCollection<DetalleFactura>
++ AñadirDetalle(DetalleFactura): void
++ ModificarDetalle(DetalleFactura): void
++ EliminarDetalle(DetalleFactura): void
+}
+
+
+class Lote extends Detalle {
++ Fecha: DateTime
++ Habilitado: bool
+}
+
+enum EnvaseTipo {
+Plastico,
+Enlatado,
+Cartón,
+NoTiene,
+}
+
+class DetallePresupuesto {
++ IdPresupuesto: int
++ CostoUnitario: double
+}
+
+class OrdenDeCompra {
++ Id: int
+- Productos: List<DetalleOrdenDeCompra>
++ Proveedor: Proveedor
++ Entregado: bool
+
++ MostrarDetalles(): ReadOnlyCollection<DetalleOrdenDeCompra>
++ AñadirDetalle(DetalleOrdenDeCompra): bool
++ ModificarDetalle(DetalleOrdenDeCompra): bool
++ EliminarDetalle(DetalleOrdenDeCompra): bool
+}
+
+class DetalleOrdenDeCompra {
++ IdOrdenDeCompra: int
++ Presupuesto: Presupuesto
++ MontoCU: double
+}
+
+class Remito {
++ Id: int 
+- LotesDeProductosEntregados: List<Lote>
++ Proveedor: Proveedor
+
++ MostrarLotes(): ReadOnlyCollection<Lote>
++ AñadirLote(Lote): bool
+}
+
+Detalle <|-- DetalleOrdenDeCompra
+Detalle <|-- DetalleFactura
+Detalle <|-- DetallePresupuesto
+
+Presupuesto "1" *-u-> "1..*" DetallePresupuesto
+
+OrdenDeCompra "1" --> "1" Proveedor
+OrdenDeCompra "1" *--> "1..*" DetalleOrdenDeCompra
+Remito "1" --> "1" Proveedor
+Remito "1" *--> "1..*" Lote
+
+Producto "1" <-- "1..*" Lote
+
+OrdenDeCompra "1" --> "1" Presupuesto
+
+ProductoNoPercedero "1" --> "1" EnvaseTipo
+
+Cliente "1" <-- "1" Factura
+Factura "1 ." *--> "1..*" DetalleFactura
+
+DetalleFactura "1   ." --> "1" Producto
+
+Proveedor "1" <-- "1 ." Presupuesto
+
+Categoria "0..*" <--o "1  ." Producto
+@enduml
+
+#+end_src
+
+#+RESULTS:
+[[file:DiagramaSinRepos.jpg]]
